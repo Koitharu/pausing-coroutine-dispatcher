@@ -1,10 +1,26 @@
 package org.koitharu.pausingcoroutinedispatcher
 
-interface PausingHandle {
+/**
+ * An entry point to control pausing coroutine execution
+ */
+public interface PausingHandle {
 
-    val isPaused: Boolean
+    /**
+     * Returns is coroutine paused or not
+     */
+    public val isPaused: Boolean
 
-    fun pause()
+    /**
+     * Pause a coroutine with all nested coroutines.
+     * Do nothing if already paused.
+     * It is safe to call this from any thread
+     */
+    public fun pause()
 
-    fun resume()
+    /**
+     * Resume a coroutine with all nested coroutines.
+     * Do nothing if not paused.
+     * It is safe to call this from any thread
+     */
+    public fun resume()
 }

@@ -11,6 +11,7 @@ repositories {
 }
 
 kotlin {
+    explicitApi()
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
@@ -44,12 +45,8 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
             }
         }
-        val commonTest by getting
         val jvmMain by getting
-        val jvmTest by getting
         val jsMain by getting
-        val jsTest by getting
         val nativeMain by getting
-        val nativeTest by getting
     }
 }
