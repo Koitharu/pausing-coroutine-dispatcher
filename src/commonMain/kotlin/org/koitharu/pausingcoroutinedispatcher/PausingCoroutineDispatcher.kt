@@ -26,6 +26,29 @@ fun <T> CoroutineScope.asyncPausing(
     return PausingDeferred(deferred, dispatcher.queue)
 }
 
+suspend fun CoroutineContext.pausing(): CoroutineContext {
+    val currentContext = currentCoroutineContext()
+    val baseDispatcher = this[CoroutineDispatcher]
+        ?: currentContext[CoroutineDispatcher]
+        ?: Dispatchers.Default
+    val queue = this[PausingDispatchQueue]
+        ?: currentContext[PausingDispatchQueue]
+    return if (queue == null) {
+        val newQueue = PausingDispatchQueue()
+        this + newQueue + PausingDispatcherImpl(newQueue, baseDispatcher)
+    } else {
+        this + PausingDispatcherImpl(queue, baseDispatcher)
+    }
+}
+
+suspend fun ensureNotPaused() {
+    val currentContext = currentCoroutineContext()
+    val queue = currentContext[PausingDispatchQueue] ?: return
+    if (queue.isPaused) {
+        yield()
+    }
+}
+
 private fun PausingDispatcher(scope: CoroutineScope, newContext: CoroutineContext): PausingDispatcherImpl {
     val baseDispatcher = newContext[CoroutineDispatcher]
         ?: scope.coroutineContext[CoroutineDispatcher]
