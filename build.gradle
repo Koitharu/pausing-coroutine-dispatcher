@@ -19,6 +19,7 @@ compileKotlin {
 
 kotlin {
     jvmToolchain(8)
+    explicitApi = 'strict'
 }
 
 afterEvaluate {
