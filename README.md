@@ -1,6 +1,6 @@
 # pausing-coroutine-dispatcher
 
-A Kotlin Multiplatform library (Jvm and Android are supported as well) that provide a
+A Kotlin/JVM library (Android is supported as well) that provide a
 flexible way to temporary pause and resume coroutines.
 
 ---

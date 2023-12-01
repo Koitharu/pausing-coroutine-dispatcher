@@ -1,0 +1,36 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.21'
+    id 'maven-publish'
+}
+
+group = 'org.koitharu'
+version = '1.0'
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs += [
+                '-opt-in=kotlin.ExperimentalStdlibApi',
+                '-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi',
+                '-opt-in=kotlinx.coroutines.InternalCoroutinesApi',
+        ]
+    }
+}
+
+kotlin {
+    jvmToolchain(8)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+}
