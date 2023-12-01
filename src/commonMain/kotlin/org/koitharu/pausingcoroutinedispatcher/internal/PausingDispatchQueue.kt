@@ -4,9 +4,9 @@ import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.internal.SynchronizedObject
 import kotlinx.coroutines.internal.synchronized
 import org.koitharu.pausingcoroutinedispatcher.PausingHandle
+import kotlin.concurrent.Volatile
 import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.CoroutineContext
-import kotlin.jvm.Volatile
 
 internal class PausingDispatchQueue : AbstractCoroutineContextElement(Key), PausingHandle {
 
