@@ -66,6 +66,15 @@ public suspend fun ensureNotPaused() {
     }
 }
 
+/**
+ * Retrieve [PausingHandle] from current coroutine context if it exists
+ */
+public suspend fun currentPausingHandle(): PausingHandle? {
+    val currentContext = currentCoroutineContext()
+    return currentContext[PausingDispatchQueue]
+}
+
+@Suppress("FunctionName")
 private fun PausingDispatcher(scope: CoroutineScope, newContext: CoroutineContext): PausingDispatcherImpl {
     val dispatcher = newContext[CoroutineDispatcher]
         ?: scope.coroutineContext[CoroutineDispatcher]
